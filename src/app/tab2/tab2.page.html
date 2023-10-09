@@ -1,17 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+<ion-menu [type]="menuType" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Menu Administrador</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+  <ion-content class="ion-padding">
+    <ion-button expand="block" color="danger" href="/tabs/tab2">Carrito</ion-button>
+    <ion-button expand="block" color="danger" href="/tabs/tab2">Salones</ion-button>
+    <ion-button expand="block" color="danger" href="/tabs/tab2">Metodos</ion-button>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Lista de Carritos
+      </ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
+        placeholder="Buscar"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Inicia la zona donde se estaran generando los datos -->
+    <ion-item *ngFor="let carrito of carritos">
+      <ion-card style="width: 100%;" button [routerLink]="['/admcarrito', carrito.car_id]" color="tertiary">
+        <ion-card-header>
+          <ion-card-subtitle>
+            Fecha: {{carrito.car_fecha}}, {{carrito.car_hora}}hrs
+          </ion-card-subtitle>
+          <ion-card-title>Carrito #{{carrito.car_id}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p>Propíetario: {{carrito.personal}} </p>
+          <ion-badge color="warning">{{carrito.estado}}</ion-badge>
+        </ion-card-content>
+
+      </ion-card>
+    </ion-item>
+  </ion-content>
+</div>

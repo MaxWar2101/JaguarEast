@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Editar</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/admsalon"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text class="ion-text-center">
+    <h2>Ingrese los datos</h2>
+  </ion-text>
+  <br>
+
+  <ion-item *ngIf="salones as salon">
+
+    <ion-list>
+      <ion-item>
+        <ion-icon slot="start" name="business-outline"></ion-icon>
+        <ion-input label="Edificio" labelPlacement="floating" value="{{salon.sal_edificio}}"
+          [clearInput]="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="dice-outline"></ion-icon>
+        <ion-input label="Número" labelPlacement="floating" value="{{salon.sal_numero}}"
+          [clearInput]="true"></ion-input>
+      </ion-item>
+    </ion-list>
+
+  </ion-item>
+  <br>
+  <ion-button expand="block" color="success" fill="outline" shape="round" href="/tabs/admsalon">
+    Guardar
+  </ion-button>
+
+</ion-content>

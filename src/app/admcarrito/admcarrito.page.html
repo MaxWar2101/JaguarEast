@@ -1,0 +1,50 @@
+<ion-menu [type]="menuType" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Menu Administrador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-button expand="block" color="primary" href="/tabs/admcarrito">Carrito</ion-button>
+    <ion-button expand="block" color="primary" href="/tabs/admsalon">Salones</ion-button>
+    <ion-button expand="block" color="primary" href="/tabs/admmetodo">Metodos</ion-button>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Lista de Carritos
+      </ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
+        placeholder="Buscar"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Inicia la zona donde se estaran generando los datos -->
+    <ion-item *ngFor="let carrito of carritos">
+      <ion-card style="width: 100%;" button [routerLink]="['/admvercarrito', carrito.car_id]" color="tertiary">
+        <ion-card-header>
+          <ion-card-subtitle>
+            Fecha: {{carrito.car_fecha}}, {{carrito.car_hora}}hrs
+          </ion-card-subtitle>
+          <ion-card-title>Carrito #{{carrito.car_id}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p>Propíetario: {{carrito.personal}} </p>
+          <ion-badge color="warning">{{carrito.estado}}</ion-badge>
+        </ion-card-content>
+
+      </ion-card>
+    </ion-item>
+  </ion-content>
+</div>

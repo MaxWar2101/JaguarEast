@@ -1,0 +1,73 @@
+<ion-menu [type]="menuType" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Menu Administrador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-button expand="block" href="/tabs/admcarrito">Carrito</ion-button>
+    <ion-button expand="block" href="/tabs/admsalon">Salones</ion-button>
+    <ion-button expand="block" href="/tabs/admmetodo">Metodos</ion-button>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Lista de Metodos
+      </ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
+        placeholder="Buscar"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button color="tertiary" href="/tabs/admnuevometodo">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <!-- Inicia la zona donde se estaran generando los datos -->
+    <ion-list *ngFor="let metodo of metodos">
+      <ion-item-sliding>
+
+        <ion-item lines="full" color="light" detail="true">
+          <ion-label>
+            <ion-note>
+              Método:
+            </ion-note>
+            <h2>
+              {{metodo.met_metodo}} 
+            </h2>
+          </ion-label>
+          <ion-label slot="end">
+            <ion-note>
+              Desliza para ver oopciones:
+            </ion-note>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options slot="end">
+          <ion-item-option button [routerLink]="['/admeditarmetodo', metodo.met_id]" color="tertiary">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-item-option>
+          <ion-item-option (click)="setOpen(true)" color="danger" expandable="true">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+      </ion-item-sliding>
+      
+    </ion-list>
+    <ion-alert [isOpen]="isAlertOpen" header="Borrar" subHeader="Confirmación" message="¿Borrar elemento?"
+      [buttons]="alertButtons" (didDismiss)="setOpen(false)"></ion-alert>
+
+  </ion-content>
+</div>
