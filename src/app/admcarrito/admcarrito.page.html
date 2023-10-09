@@ -28,10 +28,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content color="fondo">
     <!-- Inicia la zona donde se estaran generando los datos -->
-    <ion-item *ngFor="let carrito of carritos">
-      <ion-card style="width: 100%;" button [routerLink]="['/admvercarrito', carrito.car_id]" color="tertiary">
+    <ion-item *ngFor="let carrito of carritos" color="translucent">
+      <ion-card style="width: 100%;" button [routerLink]="['/admvercarrito', carrito.car_id]" color="medium">
         <ion-card-header>
           <ion-card-subtitle>
             Fecha: {{carrito.car_fecha}}, {{carrito.car_hora}}hrs
