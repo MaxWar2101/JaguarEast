@@ -8,23 +8,48 @@
 </ion-header>
 
 <ion-content>
-  <ion-text class="ion-text-center">
-    <h2>Ingrese los datos</h2>
-  </ion-text>
-  <br>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <form [formGroup]="metodo" (ngSubmit)="guardarDatos()">
+    <ion-card>
+      <ion-card-title>
+        <ion-text class="ion-text-center">
+          <h2>Ingrese los datos</h2>
+        </ion-text>
+      </ion-card-title>
 
-  <ion-item>
-    <ion-list>
-      <ion-item>
-        <ion-icon slot="start" name="business-outline"></ion-icon>
-        <ion-input label="Método" labelPlacement="floating" value="" [clearInput]="true"></ion-input>
-      </ion-item>
-    </ion-list>
-  </ion-item>
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="12">
+            <ion-list>
+              <ion-item>
+                <ion-icon slot="start" name="diamond"></ion-icon>
+                <ion-input label="Método" labelPlacement="floating" [clearInput]="true" type="text"
+                  formControlName="met_metodo" class="form-control"></ion-input>
+              </ion-item>
+            </ion-list>
 
-  <br>
-  <ion-button expand="block" color="success" fill="outline" shape="round" href="/tabs/admmetodo">
-    Guardar
-  </ion-button>
+            <div id="note" *ngFor="let validation of
+              mensajes_validacion.met_metodo">
+              <ion-note color="danger" *ngIf="getError('met_metodo')[(validation.type)]">
+                <ion-icon name="information-circle-outline"></ion-icon> {{
+                validation.message }}
+              </ion-note>
+            </div>
+          </ion-col>
+          <ion-col size="12">
+            <p class="ion-text-center">
+              <ion-button type="submit" [disabled]="!metodo.valid" color="success">Guardar</ion-button>
+            </p>
+          </ion-col>
+
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  </form>
 
 </ion-content>

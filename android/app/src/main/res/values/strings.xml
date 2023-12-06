@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Luis</string>
-    <string name="title_activity_main">Luis</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">JaguarEats</string>
+    <string name="title_activity_main">JaguarEats</string>
+    <string name="package_name">dadm.ionic.jaguareats</string>
+    <string name="custom_url_scheme">dadm.ionic.jaguareats</string>
 </resources>

@@ -7,24 +7,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-text class="ion-text-center">
-    <h2>Ingrese los datos</h2>
-  </ion-text>
-  <br>
+<ion-content >
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-title>
+      <ion-text class="ion-text-center">
+        <h2>Ingrese los datos</h2>
+      </ion-text>
+    </ion-card-title>
 
-  <ion-item *ngIf="metodos as metodo">
+    <ion-card-content>
+      <ion-list *ngIf="metodos as metodo">
+        <ion-item>
+          <ion-icon slot="start" name="cart-outline"></ion-icon>
+          <ion-input label="Método" labelPlacement="floating" value="{{metodo.met_metodo}}"
+            [clearInput]="true"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
 
-    <ion-list>
-      <ion-item>
-        <ion-icon slot="start" name="business-outline"></ion-icon>
-        <ion-input label="Edificio" labelPlacement="floating" value="{{metodo.met_metodo}}"
-          [clearInput]="true"></ion-input>
-      </ion-item>
-    </ion-list>
-
-  </ion-item>
-  <br>
-  <ion-button expand="block" color="success" fill="outline" shape="round" href="/tabs/admmetodo">
+  </ion-card>
+  <ion-button expand="block" color="success" href="/tabs/admmetodo">
     Guardar
   </ion-button>
+</ion-content>

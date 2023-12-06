@@ -8,30 +8,36 @@
 </ion-header>
 
 <ion-content>
-  <ion-text class="ion-text-center">
-    <h2>Ingrese los datos</h2>
-  </ion-text>
-  <br>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-title>
+      <ion-text class="ion-text-center">
+        <h2>Ingrese los datos</h2>
+      </ion-text>
+    </ion-card-title>
 
-  <ion-item *ngIf="salones as salon">
+    <ion-card-content>
 
-    <ion-list>
-      <ion-item>
-        <ion-icon slot="start" name="business-outline"></ion-icon>
-        <ion-input label="Edificio" labelPlacement="floating" value="{{salon.sal_edificio}}"
-          [clearInput]="true"></ion-input>
-      </ion-item>
+      <ion-list *ngIf="salones as salon">
+        <ion-item>
+          <ion-icon slot="start" name="business-outline"></ion-icon>
+          <ion-input label="Edificio" labelPlacement="floating" value="{{salon.sal_edificio}}"
+            [clearInput]="true"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-icon slot="start" name="dice-outline"></ion-icon>
-        <ion-input label="Número" labelPlacement="floating" value="{{salon.sal_numero}}"
-          [clearInput]="true"></ion-input>
-      </ion-item>
-    </ion-list>
-
-  </ion-item>
-  <br>
-  <ion-button expand="block" color="success" fill="outline" shape="round" href="/tabs/admsalon">
+        <ion-item>
+          <ion-icon slot="start" name="dice-outline"></ion-icon>
+          <ion-input label="Número" labelPlacement="floating" value="{{salon.sal_numero}}"
+            [clearInput]="true"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" color="success" href="/tabs/admsalon">
     Guardar
   </ion-button>
 

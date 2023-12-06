@@ -7,13 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { AdmsalonPageRoutingModule } from './admsalon-routing.module';
 
 import { AdmsalonPage } from './admsalon.page';
+import { PaginacionModule } from '../components/paginacion/paginacion.module';
+import { MenuModule } from '../components/menu/menu.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdmsalonPageRoutingModule
+    AdmsalonPageRoutingModule,
+    PaginacionModule,
+    MenuModule,
   ],
   declarations: [AdmsalonPage]
 })

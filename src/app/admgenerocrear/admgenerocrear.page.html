@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-fab-button slot="start">
+      <ion-back-button defaultHref="/tabs/admgenero"></ion-back-button>
+    </ion-fab-button>
+    <ion-title>Nuevo Genero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <form [formGroup]="genero" (ngSubmit)="guardarDatos()">
+    <ion-card>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating" >Nombre(s)</ion-label>
+            <ion-input type="text" formControlName="gen_nombre" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.gen_nombre">
+            <ion-note *ngIf="getError('gen_nombre')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <p >
+            <ion-button>Imagen</ion-button>
+          </p>
+        </ion-col>
+
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!genero.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-card> 
+  </form>
+
+</ion-content>

@@ -3,105 +3,30 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Carrito</ion-title>
+    <ion-title>Mis Carritos</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
-      placeholder="Buscar"></ion-searchbar>
-  </ion-toolbar>
-</ion-header> 
+</ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <!-- Inicia la zona donde se estaran generando los datos -->
-  <ion-list *ngFor="let detalle of carritos?.detalles">
-    <ion-grid [fixed]="true">
-
-      <ion-card color="medium">
-        <ion-row class="ion-align-items-center">
-          <ion-col size="3">
-            <ion-thumbnail>
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-            </ion-thumbnail>
-          </ion-col>
-          <ion-col>
-            <h5><strong>{{detalle.det_producto}}</strong></h5>
-            <p>${{detalle.det_precio}}</p>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="ion-align-items-center">
-          <ion-col size="4">
-            <ion-input label="Cantidad" type="number" label-placement="floating" fill="outline"
-              value="{{detalle.det_cantidad}}"></ion-input>
-          </ion-col>
-          <ion-col size="3"></ion-col>
-
-          <ion-col>
-            <ion-button color="light">
-              <ion-icon slot="icon-only" name="trash"></ion-icon>
-            </ion-button>
-            <ion-button color="light">
-              <ion-icon slot="icon-only" name="eye"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card>
-    </ion-grid>
-  </ion-list>
-
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="6">
-        <ion-item color="medium">
-          <ion-input label="Cupón" label-placement="floating" fill="" value=""></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item color="medium">
-          <ion-select aria-label="Ubicación" interface="popover" placeholder="Ubicación">
-            <ion-select-option *ngFor="let salon of salones" value="{{salon.sal_id}}">{{salon.sal_edificio}}
-              {{salon.sal_numero}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid fixed>
-    <ion-row class="ion-align-items-center">
-      <ion-col size="12">
-        <ion-item color="medium">
-          <ion-input label="Comentario" label-placement="floating" fill="" value=""></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid fixed>
-    <ion-list>
-      <ion-row class="ion-align-items-center ion-text-center">
-        <ion-col size="3">
-          <ion-label>
-            <ion-note>Total</ion-note>
-            <h2>$$$$</h2>
-          </ion-label>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item>
-            <ion-select aria-label="Método" interface="popover" placeholder="Método">
-              <ion-select-option *ngFor="let metodo of metodos" value="{{metodo.met_id}} ">{{metodo.met_metodo}}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col size="3">
-          <ion-button style="width: 100%; height: 50px;" color="light">
-            <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-  </ion-grid>
-
-
+  <ion-item class="ion-no-border" *ngFor="let carrito of personal?.carritos" color="translucent">
+    <ion-card button [routerLink]="['vercarrito/', carrito.car_id]">
+      <ion-card-header>
+        <ion-card-subtitle>
+          Fecha: {{carrito.car_fecha}}, {{carrito.car_hora}}hrs
+        </ion-card-subtitle>
+        <ion-card-title>Carrito #{{carrito.car_id}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Propíetario: {{personal.per_nombre}} </p>
+        <ion-badge color="{{carrito.car_clase}}">{{carrito.car_estado}}</ion-badge>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
 </ion-content>

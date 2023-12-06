@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Inicia la zona donde se estaran generando los datos -->
+  <ion-item color="translucent" *ngFor="let detalle of carritos?.detalles">
+    <ion-card>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="3">
+          <ion-thumbnail>
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col>
+          <h5><strong>{{detalle.det_producto}}</strong></h5>
+          <p>${{detalle.det_precio}}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+        <ion-col size="4">
+          <ion-input label="Cantidad" type="number" label-placement="floating"
+            value="{{detalle.det_cantidad}}"></ion-input>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+
+        <ion-col>
+          <ion-button (click)="alertElimiar(detalle.det_id_original)" color="danger" expandable="true">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+          <ion-button>
+            <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-item>
+
+</ion-content>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item class="itemL">
+        <ion-input label="Cupón" label-placement="floating" fill="" value=""></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item class="itemL">
+        <ion-select aria-label="Ubicación" interface="popover" placeholder="Ubicación">
+          <ion-select-option *ngFor="let salon of salones" value="{{salon.sal_id}}">{{salon.sal_edificio}}
+            {{salon.sal_numero}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-align-items-center">
+    <ion-col size="12">
+      <ion-item class="itemL">
+        <ion-input label="Comentario" label-placement="floating" fill="" value=""></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-card>
+    <ion-row class="ion-align-items-center ion-text-center">
+      <ion-col size="3">
+        <ion-label>
+          <ion-note>Total</ion-note>
+          <h2>$$$$</h2>
+        </ion-label>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item class="itemL">
+          <ion-select aria-label="Método" interface="popover" placeholder="Método">
+            <ion-select-option *ngFor="let metodo of metodos" value="{{metodo.met_id}} ">{{metodo.met_metodo}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button (click)="guardarDatos()" style="width: 100%; height: 50px;">
+          <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

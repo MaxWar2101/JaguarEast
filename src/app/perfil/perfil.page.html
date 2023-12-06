@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollY]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="personal as personal">
+    <img class="imagen" src="../../assets/img/{{personal.perFkgenero}}.png" alt="Foto" />
+    <ion-card>
+      <ion-card-subtitle class="ion-text-center">
+        <h1>
+          <strong>
+            {{personal.per_nombre}} {{personal.per_paterno}} {{personal.per_materno}}
+          </strong>
+        </h1>
+      </ion-card-subtitle>
+
+      <ion-card-subtitle class="ion-text-center">
+        <strong>
+          <p>Matrícula:</p>
+        </strong>
+        <h5>{{ personal.per_matricula }}</h5>
+      </ion-card-subtitle>
+
+      <ion-card-subtitle class="ion-text-center">
+        <strong>
+          <p>Teléfono:</p>
+        </strong>
+        <h5>{{ personal.per_telefono }}</h5>
+      </ion-card-subtitle>
+
+      <ion-card-subtitle class="ion-text-center">
+        <strong>
+          <p>Correo:</p>
+        </strong>
+        <h5>{{ personal.per_correo }}</h5>
+      </ion-card-subtitle>
+    </ion-card>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-button [routerLink]="['/perfileditar', personal.per_id]" color="primary">
+        Editar Perfil
+      </ion-button>
+      <ion-button [routerLink]="['/membresia']" color="primary">
+        Ver Membresias
+      </ion-button>
+    </ion-row>
+  </ion-card>
+</ion-content>

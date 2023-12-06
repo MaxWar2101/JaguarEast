@@ -1,0 +1,148 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/admpersonal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Personal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <form [formGroup]="personal" (ngSubmit)="guardarDatos()">
+    <ion-card>
+      <ion-row>
+
+        <ion-col>
+          <p>
+            <ion-button>Imagen</ion-button>
+          </p>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Nombre(s)</ion-label>
+            <ion-input type="text" formControlName="per_nombre" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.per_nombre">
+            <ion-note color="danger" *ngIf="getError('per_nombre')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Apellido Paterno</ion-label>
+            <ion-input type="text" formControlName="per_paterno" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.per_paterno">
+            <ion-note color="danger" *ngIf="getError('per_paterno')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Apellido Materno</ion-label>
+            <ion-input type="text" formControlName="per_materno" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.per_materno">
+            <ion-note color="danger" *ngIf="getError('per_materno')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Genero</ion-label>
+            <ion-select formControlName="per_fkgenero" class="form-control">
+              <ion-select-option *ngFor="let genero of generos" [value]="genero.gen_id">
+                {{ genero.gen_nombre }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+            mensajes_validacion.per_fkgenero">
+            <ion-note color="danger" *ngIf="getError('per_fkgenero')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Telefono</ion-label>
+            <ion-input type="string" formControlName="per_telefono" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.per_telefono">
+            <ion-note color="danger" *ngIf="getError('per_telefono')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Matricula</ion-label>
+            <ion-input type="string" formControlName="per_matricula" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+                mensajes_validacion.per_matricula">
+            <ion-note color="danger" *ngIf="getError('per_matricula')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Correo</ion-label>
+            <ion-input type="text" formControlName="per_correo" class="form-control"></ion-input>
+          </ion-item>
+          <div id="note" *ngFor="let validation of
+          mensajes_validacion.per_correo">
+            <ion-note color="danger" *ngIf="getError('per_correo')[(validation.type)]">
+              <ion-icon name="information-circle-outline"></ion-icon> {{
+              validation.message }}
+            </ion-note>
+          </div>
+        </ion-col>
+
+        <ion-col size="12">
+          <p class="ion-text-center">
+            <ion-button type="submit" [disabled]="!personal.valid">Guardar</ion-button>
+          </p>
+        </ion-col>
+
+      </ion-row>
+    </ion-card>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button href="http://localhost:8100/tabs/admpersonal">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Perfiles</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

@@ -1,0 +1,71 @@
+<ion-menu [type]="menuType" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <img slot="start" alt="Silhouette of mountains" src="/assets/img/admin.png" />
+      <ion-title>Menu Admin</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-menu></app-menu>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Personal </ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+
+      <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar..."></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+        refreshingSpinner="circles" refreshingText="Recargando...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-card>
+      <ion-item *ngFor="let personal of personales">
+        <ion-avatar slot="start">
+          <img src="assets/img/{{ personal.perFkgenero }}.png" />
+        </ion-avatar>
+
+        <ion-label>
+          <ion-card-title>
+            {{personal.per_nombre}} {{personal.per_paterno}}
+            {{personal.per_materno}}
+          </ion-card-title>
+          <ion-card-subtitle>
+            {{personal.per_telefono}}</ion-card-subtitle>
+        </ion-label>
+
+        <ion-button [routerLink]="['/admpersonaldetalle', personal.per_id]">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button [routerLink]="['/admpersonaleditar', personal.per_id]" color="warning">
+          <ion-icon name="pencil"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="alertEliminar(personal.per_id, personal.per_nombre)" color="danger"><ion-icon
+            name="trash"></ion-icon></ion-button>
+      </ion-item>
+    </ion-card>
+
+
+    <app-paginacion [total]="totalPersonal" (click)="pagina($event)"></app-paginacion>
+
+  </ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/admpersonalcrear']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</div>

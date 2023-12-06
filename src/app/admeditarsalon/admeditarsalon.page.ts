@@ -2,6 +2,7 @@ import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admeditarsalon',
@@ -10,12 +11,20 @@ import axios from 'axios';
 })
 export class AdmeditarsalonPage implements OnInit {
 
+  handleRefresh(event) {
+    setTimeout(() => {
+      this.ngOnInit();
+      event.target.complete();
+    }, 1000);
+  }
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
   ) { }
 
   salones: any = null;
+  headers: any = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') || 'Bearer 100-token' };
+  url: string = `${environment.apiUrl}salons/`;
 
   ngOnInit() {
     this.cargarSalones();
@@ -30,11 +39,9 @@ export class AdmeditarsalonPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://cafeteria.test/salons/"+id,
+      url: this.url + id,
       withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers:this.headers
     }).then((response) => {
       this.salones = response.data;
       event?.target.complete();

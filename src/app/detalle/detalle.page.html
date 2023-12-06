@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Detalles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <!-- Inicia la zona donde se estaran generando los datos -->
+  <ion-item color="translucent" *ngFor="let producto of productos">
+    <form [formGroup]="detalle" (ngSubmit)="existenciaCarrito(producto)">
+      <ion-card>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="4">
+            <ion-thumbnail>
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+          </ion-col>
+          <ion-col>
+            <h5><strong>{{producto.pro_nombre}}</strong></h5>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="4">
+            <p>${{producto.pro_precio}}</p>
+
+          </ion-col>
+
+          <ion-col size="4">
+            <ion-input label="Cantidad" type="number" label-placement="floating"
+              formControlName="det_cantidad"></ion-input>
+            <div id="note" *ngFor="let validation of
+            mensajes_validacion.det_cantidad">
+              <ion-note color="danger" *ngIf="getError('det_cantidad')[(validation.type)]">
+                <ion-icon name="information-circle-outline"></ion-icon> {{
+                validation.message }}
+              </ion-note>
+            </div>
+          </ion-col>
+
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>
+                  <h1>Descipción</h1>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>{{producto.pro_descripcion}}</ion-label>
+              </ion-item>
+            </ion-list>
+            <ion-row class="center">
+              <ion-col size="12">
+                <ion-button type="submit" [disabled]="!detalle.valid"  expandable="true">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+
+                <!-- <ion-button color="danger" expandable="true">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-button> -->
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-row>
+      </ion-card>
+    </form>
+  </ion-item>
+</ion-content>

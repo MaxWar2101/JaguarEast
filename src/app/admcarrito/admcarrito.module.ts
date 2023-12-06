@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { AdmcarritoPageRoutingModule } from './admcarrito-routing.module';
 
 import { AdmcarritoPage } from './admcarrito.page';
+import { MenuModule } from '../components/menu/menu.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdmcarritoPageRoutingModule
+    AdmcarritoPageRoutingModule,
+    MenuModule,
+
   ],
   declarations: [AdmcarritoPage]
 })

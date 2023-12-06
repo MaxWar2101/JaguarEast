@@ -1,14 +1,12 @@
 <ion-menu [type]="menuType" contentId="main-content">
   <ion-header>
     <ion-toolbar color="tertiary">
-      <ion-title>Menu Administrador</ion-title>
+      <img slot="start" alt="Silhouette of mountains" src="/assets/img/admin.png" />
+      <ion-title>Menu Admin</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-content class="ion-padding">
-    <ion-button expand="block" href="/tabs/admcarrito">Carrito</ion-button>
-    <ion-button expand="block" href="/tabs/admsalon">Salones</ion-button>
-    <ion-button expand="block" href="/tabs/admmetodo">Metodos</ion-button>
+  <ion-content>
+    <app-menu></app-menu>
   </ion-content>
 </ion-menu>
 
@@ -23,51 +21,46 @@
       </ion-title>
     </ion-toolbar>
     <ion-toolbar>
-      <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
-        placeholder="Buscar"></ion-searchbar>
+      <ion-searchbar [debounce]="1000" color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
+        (ionInput)="handleInput($event)" placeholder="Buscar"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+        refreshingSpinner="circles" refreshingText="Recargando...">
+      </ion-refresher-content>
+    </ion-refresher>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button color="tertiary" href="/tabs/admnuevometodo">
+      <ion-fab-button href="/tabs/admnuevometodo">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
     <!-- Inicia la zona donde se estaran generando los datos -->
-    <ion-list *ngFor="let metodo of metodos">
-      <ion-item-sliding>
-
-        <ion-item lines="full" color="light" detail="true">
+    <ion-card>
+      <ion-list *ngFor="let metodo of metodos">
+        <ion-item>
           <ion-label>
-            <ion-note>
+            <ion-card-subtitle>
               Método:
-            </ion-note>
-            <h2>
-              {{metodo.met_metodo}} 
-            </h2>
+            </ion-card-subtitle>
+            <ion-card-title>
+              {{metodo.met_metodo}}
+            </ion-card-title>
           </ion-label>
-          <ion-label slot="end">
-            <ion-note>
-              Desliza para ver oopciones:
-            </ion-note>
-          </ion-label>
+          <ion-button [routerLink]="['/admnuevometodo', metodo.met_id]">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button (click)="alertElimiar(metodo.met_id)" color="danger" expandable="true">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
         </ion-item>
+      </ion-list>
+    </ion-card>
 
-        <ion-item-options slot="end">
-          <ion-item-option button [routerLink]="['/admeditarmetodo', metodo.met_id]" color="tertiary">
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          </ion-item-option>
-          <ion-item-option (click)="setOpen(true)" color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-      </ion-item-sliding>
-      
-    </ion-list>
-    <ion-alert [isOpen]="isAlertOpen" header="Borrar" subHeader="Confirmación" message="¿Borrar elemento?"
-      [buttons]="alertButtons" (didDismiss)="setOpen(false)"></ion-alert>
+    <app-paginacion [total]="totalMetodos" [porPagina]="10" (click)="pagina($event)"></app-paginacion>
 
   </ion-content>
 </div>

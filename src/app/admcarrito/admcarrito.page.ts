@@ -1,6 +1,8 @@
-import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
+import { AlertController, InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import { Component } from '@angular/core';
 import axios from 'axios';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admcarrito',
@@ -8,12 +10,28 @@ import axios from 'axios';
   styleUrls: ['admcarrito.page.scss']
 })
 export class AdmcarritoPage {
-  menuType: string = 'push';
+  menuType: string = 'overlay';
+
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      this.ngOnInit();
+      event.target.complete();
+    }, 1000);
+  }
+
+  public carrito!: any;
+
   constructor(
+    private alert: AlertController,
+    private rout: Router,
     private loadingCtrl: LoadingController,
   ) { }
 
   carritos: any = [];
+  
+  headers: any = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') || 'Bearer 100-token' };
+  url: string = `${environment.apiUrl}carritos`;
 
   ngOnInit() {
     this.cargarCarritos();
@@ -27,11 +45,9 @@ export class AdmcarritoPage {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://cafeteria.test/carrito?expand=estado,personal",
+      url: this.url + "?expand=estado,personal,clase",
       withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: this.headers
     }).then((response) => {
       this.carritos = response.data;
       event?.target.complete();
@@ -41,5 +57,13 @@ export class AdmcarritoPage {
     loading.dismiss();
   }
 
-  
+
+  public getError(controlName: string) {
+    let errors: any[] = [];
+    const control = this.carrito.get(controlName);
+    if (control?.touched && control?.errors != null) {
+      errors = JSON.parse(JSON.stringify(control?.errors));
+    }
+    return errors;
+  }
 }

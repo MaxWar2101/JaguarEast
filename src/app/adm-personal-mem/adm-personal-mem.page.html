@@ -1,0 +1,66 @@
+<ion-menu [type]="menuType" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <img slot="start" alt="Silhouette of mountains" src="/assets/img/admin.png" />
+      <ion-title>Menu Admin</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-menu></app-menu>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <!--Boton regresar-->
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <!--Titulo de la pagina-->
+      <ion-title class="ion-text-wrap">
+        <h2>Personas con membresias</h2>
+      </ion-title>
+      <!--Barra de busqueda-->
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Buscar" show-clear-button="focus">
+      </ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <!--Contenido de la pagina-->
+  <ion-content [fullscreen]="true">
+    <ion-list *ngFor="let personalMembresia of personalMembresias">
+      <ion-item lines="full">
+        <ion-card>
+          <ion-card-header class="center">
+            <ion-card-title>
+              <h2>#{{personalMembresia.permem_id}}</h2>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-card-subtitle>Nombre completo:</ion-card-subtitle>
+            <ion-label> {{personalMembresia.nombre}}</ion-label>
+            <ion-card-subtitle>Membresia:</ion-card-subtitle>
+            <ion-label> {{personalMembresia.membresia}}</ion-label>
+            <ion-card-subtitle>Fecha de inicio:</ion-card-subtitle>
+            <ion-label> {{personalMembresia.permem_inicio}} </ion-label>
+            <ion-card-subtitle>Vigente hasta:</ion-card-subtitle>
+            <ion-label> {{personalMembresia.vigencia}} </ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+    <!--componente de paginacion importada del commponente/paginacion-->
+    <app-paginacion [total]="totalPerMems" (click)="pagina($event)"></app-paginacion>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button [routerLink]="['/adm-personal-mem']">
+        <ion-icon name="add-circle-outline" size="large"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
+</div>

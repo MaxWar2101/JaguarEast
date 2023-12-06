@@ -1,14 +1,12 @@
 <ion-menu [type]="menuType" contentId="main-content">
   <ion-header>
     <ion-toolbar color="tertiary">
-      <ion-title>Menu Administrador</ion-title>
+      <img slot="start" alt="Silhouette of mountains" src="/assets/img/admin.png" />
+      <ion-title>Menu Admin</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-content class="ion-padding">
-    <ion-button expand="block" color="primary" href="/tabs/admcarrito">Carrito</ion-button>
-    <ion-button expand="block" color="primary" href="/tabs/admsalon">Salones</ion-button>
-    <ion-button expand="block" color="primary" href="/tabs/admmetodo">Metodos</ion-button>
+  <ion-content>
+    <app-menu></app-menu>
   </ion-content>
 </ion-menu>
 
@@ -22,16 +20,17 @@
         Lista de Carritos
       </ion-title>
     </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar color="light" show-clear-button="always" clear-icon="trash-bin" animated="true"
-        placeholder="Buscar"></ion-searchbar>
-    </ion-toolbar>
   </ion-header>
 
-  <ion-content color="fondo">
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+        refreshingSpinner="circles" refreshingText="Recargando...">
+      </ion-refresher-content>
+    </ion-refresher>
     <!-- Inicia la zona donde se estaran generando los datos -->
     <ion-item *ngFor="let carrito of carritos" color="translucent">
-      <ion-card style="width: 100%;" button [routerLink]="['/admvercarrito', carrito.car_id]" color="medium">
+      <ion-card button [routerLink]="['/admvercarrito', carrito.car_id]">
         <ion-card-header>
           <ion-card-subtitle>
             Fecha: {{carrito.car_fecha}}, {{carrito.car_hora}}hrs
@@ -41,7 +40,7 @@
 
         <ion-card-content>
           <p>Propíetario: {{carrito.personal}} </p>
-          <ion-badge color="warning">{{carrito.estado}}</ion-badge>
+          <ion-badge color="{{carrito.clase}}">{{carrito.estado}}</ion-badge>
         </ion-card-content>
 
       </ion-card>

@@ -1,0 +1,37 @@
+img {
+    height: 100px;
+    width: 100px;
+    align-self: center;
+    margin-top: 20px;
+}
+
+ion-card {
+    margin: 10px;
+    width: auto;
+}
+
+ion-content {
+    text-align: center;
+}
+
+ion-card-header {
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+}
+
+ion-title {
+    padding-top: 10px;
+}
+
+ion-card-header {
+    padding: 5px;
+}
+
+ion-toast.custom-toast {
+    --background: #f4f4fa;
+    --border-radius: 30px;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #01396A;
+    
+}

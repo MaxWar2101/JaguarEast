@@ -1,8 +1,94 @@
-.ion-color-fondo {
-    --ion-color-base: var(--ion-color-fondo, #0a0260) !important;
-    --ion-color-base-rgb: var(--ion-color-fondo-rgb, 61, 194, 255) !important;
-    --ion-color-contrast: var(--ion-color-fondo-contrast, #fff) !important;
-    --ion-color-contrast-rgb: var(--ion-color-fondo-contrast-rgb, 255, 255, 255) !important;
-    --ion-color-shade: var(--ion-color-fondo-shade, #36abe0) !important;
-    --ion-color-tint: var(--ion-color-fondo-tint, #50c8ff)!important;
-};
+  /*
+  Todos los componentes utilizados en esta aplicacion 
+  tienen definidos los valores de color y estilos de letra
+  NO modificar los valores aqui establecidos 
+  */
+  @font-face {
+    font-family: "Nexa";
+    src: url("/assets/font/NexaRegular.otf");
+
+    font-family: "Cairo-Play";
+    src: url("/assets/font/CairoPlay.ttf");
+  }
+
+  :root {
+    --ion-font-family: 'Nexa';
+    --cGrisBajo: #D3D3D3;
+    --cAzulFuerte: #01396A;
+    --cAzulMedio: #50BFE6;
+    --cGrisFuerte: #807e82;
+    --cBlanco: #FFFfff;
+    --cNegro: #000000;
+  }
+
+  ion-content {
+    --background: linear-gradient(to top left, var(--cAzulMedio), var(--cAzulFuerte));
+    --color: var(--cBlanco);
+  }
+
+  ion-toolbar {
+    background: #807e82;
+    background-color: #807e82;
+  }
+
+  ion-title {
+    text-align: center;
+    font-family: 'Cairo-Play';
+    font-size: x-large;
+  }
+
+  ion-card {
+    background: var(--cGrisBajo);
+    color: var(--cNegro);
+    width: 100%;
+  }
+
+  ion-card-title {
+    color: var(--cNegro);
+    font-family: 'Cairo-Play';
+  }
+
+  ion-card-subtitle {
+    --color: var(--cNegro);
+    font-style: italic;
+  }
+
+  ion-button {
+    --background: var(--cAzulMedio);
+    --color: var(--cNegro);
+    font-family: 'Cairo-Play';
+    --border-radius: 15px;
+  }
+
+  ion-fab-button {
+    --border-radius: 90px;
+    --box-shadow: 0px 1px 2px 0px var(--cBlanco), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --color: var(--cNegro);
+  }
+
+  ion-item {
+    --background: transparent;
+    color: var(--cNegro);
+  }
+
+  /*Este componente no tiene propiedades editables
+asi que no las reconoce globalmente, sin embargo
+puedes asignarle la propiedad en el tab correspondiente*/
+  ion-list {
+    background: transparent;
+    margin: 0%;
+    padding: 1;
+  }
+
+  ion-label {
+    margin: 0%;
+  }
+
+  ion-menu::part(backdrop) {
+    background-color: rgba(187, 0, 187, 0.5);
+  }
+
+  ion-menu::part(container) {
+    border-radius: 0 20px 20px 0;
+    box-shadow: 4px 0px 16px rgba(255, 0, 255, 0.18);
+  }

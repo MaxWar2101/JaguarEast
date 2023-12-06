@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/adm-ver-membresia"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Membresia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Crear Membresia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-content>
+      <!--Elementos que se enviaran la tabla membresia-->
+      <form [formGroup]="membresia" (ngSubmit)="guardarDatos()">
+        <ion-input label="Nombre" labelPlacement="floating" placeholder="Nombre de la membresia" type="text"
+          formControlName="mem_nombre" class="form-control"></ion-input>
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.mem_nombre">
+          <ion-note color="danger" *ngIf="getError('mem_nombre')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{
+            validation.message }}
+          </ion-note>
+        </div>
+        <ion-input label="Vigencia" labelPlacement="floating" placeholder="Vigencia de la membresia" type="text"
+          formControlName="mem_vigencia" class="form-control"></ion-input>
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.mem_vigencia">
+          <ion-note color="danger" *ngIf="getError('mem_vigencia')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{
+            validation.message }}
+          </ion-note>
+        </div>
+        <ion-input label="Beneficios" labelPlacement="floating" placeholder="Beneficios de la membresia" type="text"
+          formControlName="mem_beneficios" class="form-control"></ion-input>
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.mem_beneficios">
+          <ion-note color="danger" *ngIf="getError('mem_beneficios')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{
+            validation.message }}
+          </ion-note>
+        </div>
+        <ion-input label="Precio" labelPlacement="floating" placeholder="Precio de la membresia" type="number"
+          formControlName="mem_precio" class="form-control"></ion-input>
+        <div id="note" *ngFor="let validation of
+          mensajes_validacion.mem_precio">
+          <ion-note color="danger" *ngIf="getError('mem_precio')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{
+            validation.message }}
+          </ion-note>
+        </div>
+        <ion-input label="Condiciones" labelPlacement="floating" placeholder="Terminos y condiciones de la membresia"
+          type="text" formControlName="mem_condicion" class="form-control"></ion-input>
+        <div id="note" *ngFor="let validation of
+            mensajes_validacion.mem_condicion">
+          <ion-note color="danger" *ngIf="getError('mem_condicion')[(validation.type)]">
+            <ion-icon name="information-circle-outline"></ion-icon> {{
+            validation.message }}
+          </ion-note>
+        </div>
+        <!--Boton que envia los datos-->
+        <ion-button expand="block" type="submit" [disabled]="!membresia.valid">Crear</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

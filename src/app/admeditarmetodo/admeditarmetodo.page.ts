@@ -2,6 +2,7 @@ import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admeditarmetodo',
@@ -10,12 +11,20 @@ import axios from 'axios';
 })
 export class AdmeditarmetodoPage implements OnInit {
 
+  handleRefresh(event) {
+    setTimeout(() => {
+      this.ngOnInit();
+      event.target.complete();
+    }, 1000);
+  }
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
   ) { }
 
   metodos: any = null;
+  headers: any = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') || 'Bearer 100-token' };
+  url: string = `${environment.apiUrl}metodos/`;
 
   ngOnInit() {
     this.cargarMetodo();
@@ -30,11 +39,9 @@ export class AdmeditarmetodoPage implements OnInit {
     await loading.present();
     const response = await axios({
       method: 'get',
-      url: "http://cafeteria.test/metodos/" + id,
+      url: this.url + id,
       withCredentials: true,
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: this.headers
     }).then((response) => {
       this.metodos = response.data;
       event?.target.complete();

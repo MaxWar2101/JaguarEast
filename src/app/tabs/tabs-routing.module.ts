@@ -4,21 +4,9 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
-      {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
-      },
-      {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
-      {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
       {
         path: 'admcarrito',
         loadChildren: () => import('../admcarrito/admcarrito.module').then(m => m.AdmcarritoPageModule)
@@ -42,7 +30,10 @@ const routes: Routes = [
         path: 'admnuevosalon',
         loadChildren: () => import('../admnuevosalon/admnuevosalon.module').then(m => m.AdmnuevosalonPageModule)
       },
-
+      {
+        path: 'admnuevosalon/:id',
+        loadChildren: () => import('../admnuevosalon/admnuevosalon.module').then(m => m.AdmnuevosalonPageModule)
+      },
       {
         path: 'admmetodo',
         loadChildren: () => import('../admmetodo/admmetodo.module').then(m => m.AdmmetodoPageModule)
@@ -55,17 +46,45 @@ const routes: Routes = [
         path: 'carrito',
         loadChildren: () => import('../carrito/carrito.module').then(m => m.CarritoPageModule)
       },
+      {
+        path: 'detalle',
+        loadChildren: () => import('../detalle/detalle.module').then(m => m.DetallePageModule)
+      },
+      {
+        path: 'adm-ver-membresia',
+        loadChildren: () => import('../adm-ver-membresia/adm-ver-membresia.module').then(m => m.AdmVerMembresiaPageModule)
+      },
+      {
+        path: 'adm-crear-membresia/:id',
+        loadChildren: () => import('../adm-crear-membresia/adm-crear-membresia.module').then(m => m.AdmCrearMembresiaPageModule)
+      },
+      {
+        path: 'admpersonal',
+        loadChildren: () => import('../admpersonal/admpersonal.module').then(m => m.AdmPersonalPageModule)
+      },
+      {
+        path: 'admgenero',
+        loadChildren: () => import('../admgenero/admgenero.module').then(m => m.GeneroPageModule)
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      {
+        path: 'adm-personal-mem',
+        loadChildren: () => import('../adm-personal-mem/adm-personal-mem.module').then(m => m.AdmPersonalMemPageModule)
+      },
 
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/admcarrito',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/admcarrito',
     pathMatch: 'full'
   }
 ];

@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: CarritoPage
-  }
+  },
+  {
+    path: 'vercarrito/:id',
+    loadChildren: () => import('../vercarrito/vercarrito.module').then(m => m.VercarritoPageModule)
+  },
 ];
 
 @NgModule({

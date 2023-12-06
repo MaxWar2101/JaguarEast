@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { AdmnuevometodoPageRoutingModule } from './admnuevometodo-routing.module';
 
 import { AdmnuevometodoPage } from './admnuevometodo.page';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdmnuevometodoPageRoutingModule
+    AdmnuevometodoPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [AdmnuevometodoPage]
 })

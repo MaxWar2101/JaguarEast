@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-fab-button slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-fab-button>
+    <ion-title>Genero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngIf="genero as genero">
+    <img class="imagen" src="../assets/img/{{genero.gen_nombre}}.png" alt="Foto" />
+    <ion-card>
+      <ion-card-title>
+        <h3>
+          {{genero.gen_nombre}}
+        </h3>
+      </ion-card-title>
+    </ion-card>
+
+  </ion-card>
+</ion-content>

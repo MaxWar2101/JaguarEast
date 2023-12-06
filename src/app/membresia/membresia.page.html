@@ -1,0 +1,60 @@
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/perfil"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        <h2>Membresias</h2>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar placeholder="Buscar" [debounce]="1000" show-clear-button="focus">
+      </ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content color="fondo">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para recargar"
+      refreshingSpinner="circles" refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--Barra de busqueda-->
+  <ion-item *ngIf="personals as personal">
+    <ion-card >
+      <ion-card-title class="ion-padding"> Membresia actual: {{personal.membresia}}</ion-card-title>
+      
+    </ion-card>
+  </ion-item>
+
+    
+    <!--Inicia seccion de items-->
+  <!--cada card es un item llamado de la BD-->
+  <ion-item *ngFor="let membresia of membresias">
+    <ion-card>
+    
+      <ion-card-header>
+        <!--llamamos los campos de la BD con {{tabla.campoTabla}}-->
+        <ion-card-title >{{membresia.mem_nombre}}</ion-card-title>
+        <ion-card-subtitle>Vigencia:{{membresia.mem_vigencia}}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Beneficios <br> {{membresia.mem_beneficios}}
+         <!--Boton de enlace a los detalles
+          el routerLink se enlaza a los patch de app-routing.module.ts
+          el primero hace referencia a que pagina va a ir, el segundo el campo de la tabla que recibe la otra pagina-->
+          <ion-button [routerLink]="['/membresia-detalle', membresia.mem_id]" expand="block" 
+                      shadow="color:#30A5E2;:5; y:5; radius:5">
+                      Lo quiero
+                    </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+</ion-content>
+</div>
